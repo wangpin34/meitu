@@ -1,15 +1,19 @@
-package com.wangpin.ice.meitu.com.wangpin.ice.meitu.utils;
+package com.wangpin.ice.meitu.utils;
 
 import android.os.Environment;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.io.FileUtils;
 
 /**
  * Created by wangpi on 6/16/2016.
  */
-public class Imgs {
+public class Imgs{
 
     private final String DEFAULT_PATH = "/";
     private File root;
@@ -26,10 +30,16 @@ public class Imgs {
         this.root = root;
     }
 
-
-    public Collection<File> list(){
+    public List<String> list(){
         String[] exts = {"gif","jpg","jpeg","png"};
-        return FileUtils.listFiles(root, exts, true);
+        Collection<File> files =  FileUtils.listFiles(root, exts, true);
+        Iterator<File> fileIter = files.iterator();
+        List<String> imgPathes = new ArrayList<String>();
+        while(fileIter.hasNext()){
+            File f = fileIter.next();
+            imgPathes.add(f.getAbsolutePath());
+        }
+        return imgPathes;
     }
 
 }
